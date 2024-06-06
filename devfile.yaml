@@ -1,0 +1,54 @@
+schemaVersion: 2.2.0
+metadata:
+  name: astro
+  version: 2.2.1
+  displayName: Astro
+  description: >-
+    Astro is a free and open-source front-end JavaScript library for building
+    user interfaces based on UI components. It is maintained by Meta and a
+    community of individual developers and companies.
+  tags:
+    - Node.js
+  icon: >-
+    https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/react.svg
+  projectType: React
+  language: TypeScript
+  provider: Red Hat
+components:
+  - name: runtime
+    container:
+      image: registry.access.redhat.com/ubi9/nodejs-20
+      memoryLimit: 1024Mi
+      args:
+        - tail
+        - '-f'
+        - /dev/null
+      endpoints:
+        - name: https
+          targetPort: 8080
+          protocol: https
+starterProjects:
+  - name: nodejs-starter
+    git:
+      checkoutFrom:
+        revision: main
+      remotes:
+        origin: https://github.com/kunyan/astro-serverless-openshift.git
+    typeName: nodejs
+commands:
+  - id: install
+    exec:
+      group:
+        kind: build
+        isDefault: true
+      commandLine: npm install
+      component: runtime
+      workingDir: ${PROJECT_SOURCE}
+  - id: run
+    exec:
+      group:
+        kind: run
+        isDefault: true
+      commandLine: npm run start
+      component: runtime
+      workingDir: ${PROJECT_SOURCE}
