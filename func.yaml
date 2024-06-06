@@ -1,0 +1,4 @@
+specVersion: 0.36.0
+name: astro-serverless-openshift
+runtime: node
+created: 2024-06-06T23:13:22.11583+08:00
